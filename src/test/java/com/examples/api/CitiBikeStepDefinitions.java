@@ -36,15 +36,15 @@ public class CitiBikeStepDefinitions {
     }
 
     @Then("response should have country {string} and longitude {double}F and latitude {double}F")
-    public void responseShouldHaveCountryAndLongitudeFAndLatitudeF(String arg0, double arg1, double arg2) {
-        log.info("arg0:{} arg1:{} arg2:{} ", arg0, arg1, arg2);
+    public void responseShouldHaveCountryAndLongitudeFAndLatitudeF(String countryCode, double longitude, double latitude) {
+        log.info("arg0:{} arg1:{} arg2:{} ", countryCode, longitude, latitude);
         JsonPath jsonPath = response.getBody().jsonPath();
 
         String country = jsonPath.get("network.location.country");
-        assertThat(country).isEqualTo("DE");
+        assertThat(country).isEqualTo(countryCode);
 
-        assertThat(jsonPath.getDouble("network.location.longitude")).isEqualTo(arg1);
-        assertThat(jsonPath.getDouble("network.location.latitude")).isEqualTo(arg2);
+        assertThat(jsonPath.getDouble("network.location.longitude")).isEqualTo(longitude);
+        assertThat(jsonPath.getDouble("network.location.latitude")).isEqualTo(latitude);
         response.prettyPrint();
     }
 }

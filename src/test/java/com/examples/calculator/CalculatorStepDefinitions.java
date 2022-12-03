@@ -1,5 +1,6 @@
-package com.examples.cucumber;
+package com.examples.calculator;
 
+import com.examples.cucumber.Calculator;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

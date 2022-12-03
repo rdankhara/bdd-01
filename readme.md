@@ -1,3 +1,5 @@
+### MVN cucumber project
+> To Run using command line try `mvn test or mvn test -Dcucumber.filter.tags="@smoke"`
 #MVN cucumber project
 
 1. check your java version, this project is configured to run on java 16, if you are running different version then change it in pom.xml
