@@ -12,11 +12,8 @@ public class Factorial {
         while (divider <= start) {
             if (start % divider == 0) {
                 set.add(divider);
-                set.add(start);
-                start = start / divider;
-            } else {
-                divider++;
             }
+            divider++;
         }
         return set;
     }
@@ -53,7 +50,9 @@ public class Factorial {
 
         int firstOfB = b.get(0);
         Set<Integer> firstBFactors = getFactors(firstOfB);
-        System.out.println("firstBFactors" + firstBFactors);
+        var factorsList = new ArrayList<>(firstBFactors);
+        Collections.sort(factorsList);
+        System.out.println("firstBFactors" + factorsList);
         for (Integer fact : firstBFactors) {
             if (fact >= maxOfa && fact <= firstOfB) {
                 if (checkNumberIsFactorOfAll(b, fact) && checkIfAllNumberAreFactorOf(a, fact)) {
@@ -66,9 +65,12 @@ public class Factorial {
     }
 
     public static void main(String[] args) {
-        int count = getTotalX(new ArrayList<>(Arrays.asList(2, 4)), new ArrayList<>(Arrays.asList(16, 32, 96)));
-        System.out.println("count for [2, 4] and [16, 32, 96] should be 3 "  + count);
-        count = getTotalX(new ArrayList<>(Arrays.asList(2, 6)), new ArrayList<>(Arrays.asList(24, 36)));
-        System.out.println("count for [2, 4] and [16, 32, 96] should be 2 "  + count);
+        int count = getTotalX(new ArrayList<>(Arrays.asList(1)), new ArrayList<>(Arrays.asList(100)));
+        System.out.println("count for [1] and [100] should be 9 "  + count);
+
+//        count = getTotalX(new ArrayList<>(Arrays.asList(2, 4)), new ArrayList<>(Arrays.asList(16, 32, 96)));
+//        System.out.println("count for [2, 4] and [16, 32, 96] should be 3 "  + count);
+//        count = getTotalX(new ArrayList<>(Arrays.asList(2, 6)), new ArrayList<>(Arrays.asList(24, 36)));
+//        System.out.println("count for [2, 4] and [16, 32, 96] should be 2 "  + count);
     }
 }
