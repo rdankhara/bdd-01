@@ -50,9 +50,6 @@ public class Factorial {
 
         int firstOfB = b.get(0);
         Set<Integer> firstBFactors = getFactors(firstOfB);
-        var factorsList = new ArrayList<>(firstBFactors);
-        Collections.sort(factorsList);
-        System.out.println("firstBFactors" + factorsList);
         for (Integer fact : firstBFactors) {
             if (fact >= maxOfa && fact <= firstOfB) {
                 if (checkNumberIsFactorOfAll(b, fact) && checkIfAllNumberAreFactorOf(a, fact)) {
