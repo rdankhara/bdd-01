@@ -10,3 +10,4 @@
 
 2. Open pom file and press `Ctrl + Shift + O`, Keyboard shortcut to update maven dependency is `Ctrl+Shift+O`
 3. To Run using command line try `mvn test or mvn test -Dcucumber.filter.tags="@smoke"`
+4. refer cucumber [expression](https://github.com/cucumber/cucumber-expressions#readme)
