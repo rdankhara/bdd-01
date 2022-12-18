@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(features = "classpath:features",
         plugin = {"pretty", "html:target/cucumber"},
-        glue = {"com.examples.cucumber"},
+        glue = {"com.examples"},
         tags = "@score",
         publish = true
 )

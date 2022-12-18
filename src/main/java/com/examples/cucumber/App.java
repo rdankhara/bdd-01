@@ -11,7 +11,12 @@ public class App {
         person.setFirstName("Abc");
         person.setLastName("Bcd");
 
+        log.info("java.class.path:{}", System.getProperty("java.class.path"));
         log.info("FirstName: {} LastName: {}", person.getFirstName(), person.getLastName());
-        log.error("something went wrong");
+        try{
+            throw new Exception("error");
+        } catch(Exception e) {
+            log.error("something went wrong");
+        }
     }
 }

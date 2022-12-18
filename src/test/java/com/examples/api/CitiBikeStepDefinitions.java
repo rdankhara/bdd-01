@@ -4,12 +4,10 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.extern.slf4j.Slf4j;
-import org.hamcrest.core.Is;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -20,31 +18,34 @@ public class CitiBikeStepDefinitions {
     Response response;
     @Given("I am on {string} api")
     public void iAmOnApi(String baseUri) {
-        RestAssured.baseURI = baseUri;
+        request = given().baseUri(baseUri);
     }
 
     @When("I am on {string} path")
     public void iAmOnPath(String path) {
         log.info("path: {}", path);
-        RestAssured.basePath = path;
+        request.basePath(path);
     }
 
     @And("make get request to {string}")
     public void makeGetRequestTo(String city) {
         log.info("make get request for city:{}", city);
-        response = given().when().get(city).then().extract().response();
+        response = request
+                .when()
+                .param("fields", "id,name,location")
+                .log().everything()
+                .get(city);
     }
 
     @Then("response should have country {string} and longitude {double}F and latitude {double}F")
     public void responseShouldHaveCountryAndLongitudeFAndLatitudeF(String countryCode, double longitude, double latitude) {
-        log.info("arg0:{} arg1:{} arg2:{} ", countryCode, longitude, latitude);
-        JsonPath jsonPath = response.getBody().jsonPath();
+        log.info("country code:{} longitude:{} latitude:{} ", countryCode, longitude, latitude);
+        JsonPath jsonPath = response.jsonPath();
 
         String country = jsonPath.get("network.location.country");
         assertThat(country).isEqualTo(countryCode);
 
         assertThat(jsonPath.getDouble("network.location.longitude")).isEqualTo(longitude);
         assertThat(jsonPath.getDouble("network.location.latitude")).isEqualTo(latitude);
-        response.prettyPrint();
     }
 }
