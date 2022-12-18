@@ -15,16 +15,15 @@ public class WordCount {
         Matcher matcher = pattern.matcher(input);
         Map<String, Integer> map = new HashMap<String, Integer>();
 
+        int min = 1, max= 1;
         while (matcher.find()) {
             String word = matcher.group();
             int count = map.getOrDefault(word, 0) + 1;
             map.put(word, count);
+            min = Math.min(min, count);
+            max = Math.max(max, count);
         }
-        int min = 1, max= 1;
-        for (Map.Entry<String, Integer> entry: map.entrySet()) {
-            min = Math.min(min, entry.getValue());
-            max = Math.max(max, entry.getValue());
-        }
+
         var wordsHavingMaxCount = new ArrayList<String>();
         var wordsHavingMinCount = new ArrayList<String>();
         for (Map.Entry<String, Integer> entry: map.entrySet()) {
