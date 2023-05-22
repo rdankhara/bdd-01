@@ -1,4 +1,4 @@
-@calculator, @smoke
+@calculator
 Feature: Calculator
   Scenario: Adding two numbers
     Given I have a calculator

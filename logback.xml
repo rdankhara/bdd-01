@@ -1,0 +1,35 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%-5level %logger{36} -%kvp- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_ROOT}/app.log</file>
+        <append>true</append>
+        <immediateFlush>false</immediateFlush>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Archiving daily -->
+            <fileNamePattern>${LOG_ROOT}/app-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <!-- Archiving 60 days of logs and max 10GB size limit -->
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </root>
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

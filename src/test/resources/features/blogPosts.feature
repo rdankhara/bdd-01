@@ -1,3 +1,4 @@
+@blogs
 Feature: Get comments by post id
   Scenario: comments by post id
     Given I build request with baseUri "https://jsonplaceholder.typicode.com/"

@@ -33,8 +33,8 @@ public class PostsApiTests {
         Assert.assertEquals(200, response.statusCode());
         JsonPath jsonPath = response.jsonPath();
 //        log.info("first Item : {}", jsonPath.getString("title"));
-        Assert.assertEquals(jsonPath.getString("title"), "qui est esse");
-        Assert.assertEquals(jsonPath.getInt("id"), 2);
+        Assert.assertEquals(jsonPath.getString("[0].email"), "Presley.Mueller@myrl.com");
+        Assert.assertEquals(jsonPath.getInt("[0].id"), 6);
 //        response.prettyPrint();
     }
 
