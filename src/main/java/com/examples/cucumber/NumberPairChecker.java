@@ -2,6 +2,7 @@ package com.examples.cucumber;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NumberPairChecker {
     public static boolean checkNumberPairs(List<Integer> numbers) {
@@ -11,11 +12,17 @@ public class NumberPairChecker {
             counter.put(value, existingCount + 1);
         }
 
-        for (var value:counter.values()) {
-            if (value.intValue() % 2 != 0) {
-                return false;
-            }
-        }
-        return true;
+        return counter.values().stream().allMatch(x -> x % 2 ==0);
+//        for (var value:counter.values()) {
+//            if (!isEven(value.intValue())) {
+//                return false;
+//            }
+//        }
+//        return true;
     }
+
+//
+//    public static boolean isEven (int x) {
+//        return x % 2 == 0;
+//    }
 }
