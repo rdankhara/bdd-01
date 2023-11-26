@@ -17,7 +17,33 @@ public class GeneralQuestionTest {
         log.info("a :{}, b:{}", a, b);
     }
 
+    @Test
+    public void check_set() {
+        Set<String> names = new HashSet<String>();
+        names.add("John");
+        names.add("John");
+        names.add("John");
+        names.add("Brad");
+        log.info("names contains(John): {}, size of names: {} ", names.contains("John"), names.size());
+        for (String s : names) {
+            System.out.println(s);
+        }
+    }
 
+    @Test
+    public void hash_map() {
+        Map<String, Integer> worldMap = new HashMap<>();
+        String [] words = new String[] {"apple", "banana", "apple", "table", "cat"};
+
+        for (String word: words) {
+            if (worldMap.containsKey(word)) {
+                worldMap.put(word, worldMap.get(word) + 1);
+            } else {
+                worldMap.put(word, 1);
+            }
+        }
+        log.info("words: {}", worldMap);
+    }
     @Test
     public void randomNumberGenerator() {
         Set<Integer> generated = new HashSet<>();
@@ -37,6 +63,7 @@ public class GeneralQuestionTest {
 
     @Test
     public void mapOfNumbers () {
+        String[] array = new String[] {"Hello", "World"};
         var mapOfId = new HashMap<Integer, String>();
         mapOfId.put(1, "Meena");
         mapOfId.put(2, "Narendra");
