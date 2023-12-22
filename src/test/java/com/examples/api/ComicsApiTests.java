@@ -93,9 +93,10 @@ public class ComicsApiTests {
 //        var ts = new Date().getTime();
 //        String privateKey = "your private key";
         String publicKey = "3750536889898a0565ac71a0eb6920ad";
-//        String generatedHash = HashGenerator.getMd5(ts + privateKey + publicKey);
         var ts = "abcd";
         String generatedHash = "9df35ef657b719ae8195f0b7adc5d995";
+//        String generatedHash = HashGenerator.getMd5(ts + privateKey + publicKey);
+
         System.out.println("Hash:" + "9df35ef657b719ae8195f0b7adc5d995");
         ValidatableResponse response = given()
                 .baseUri("http://gateway.marvel.com/v1/public")

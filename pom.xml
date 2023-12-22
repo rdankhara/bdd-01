@@ -17,7 +17,7 @@
     <maven.compiler.source>16</maven.compiler.source>
     <maven.compiler.target>16</maven.compiler.target>
     <cucumber.version>7.8.1</cucumber.version>
-
+    <assertj.version>3.23.1</assertj.version>
   </properties>
   <!--  press Ctrl + Shift + O to update dependencies -->
   <dependencies>
@@ -38,7 +38,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.23.1</version>
+      <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
 

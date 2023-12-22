@@ -32,17 +32,29 @@ public class GeneralQuestionTest {
 
     @Test
     public void hash_map() {
-        Map<String, Integer> worldMap = new HashMap<>();
+        Map<String, Integer> wordMap = new HashMap<>();
         String [] words = new String[] {"apple", "banana", "apple", "table", "cat"};
 
         for (String word: words) {
-            if (worldMap.containsKey(word)) {
-                worldMap.put(word, worldMap.get(word) + 1);
+            if (wordMap.containsKey(word)) {
+                wordMap.put(word, wordMap.get(word) + 1);
             } else {
-                worldMap.put(word, 1);
+                wordMap.put(word, 1);
             }
         }
-        log.info("words: {}", worldMap);
+
+        Map.Entry<String, Integer> maxValueEntry = null;
+        for (Map.Entry<String, Integer> currentEntry : wordMap.entrySet()) {
+            if (maxValueEntry == null) {
+                maxValueEntry = currentEntry;
+            } else {
+                 maxValueEntry =  currentEntry.getValue() > maxValueEntry.getValue() ? currentEntry : maxValueEntry;
+            }
+
+            log.info("{}:{} ", currentEntry.getKey(), currentEntry.getValue());
+        }
+
+        log.info("word that occurred maximum number of time : {}", maxValueEntry);
     }
     @Test
     public void randomNumberGenerator() {

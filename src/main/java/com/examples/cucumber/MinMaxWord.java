@@ -2,13 +2,12 @@ package com.examples.cucumber;
 
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 @Data
 public class MinMaxWord {
-    private List<String> minWords;
-    private List<String> maxWords;
+    private List<Map.Entry<String, Integer>> minWords;
+    private List<Map.Entry<String, Integer>> maxWords;
     private String something = "hello";
 }
