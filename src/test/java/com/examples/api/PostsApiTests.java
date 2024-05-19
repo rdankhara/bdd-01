@@ -30,6 +30,7 @@ public class PostsApiTests {
             .pathParam("id", 2)
             .get("comments");
 
+        response.prettyPrint();
         Assert.assertEquals(200, response.statusCode());
         JsonPath jsonPath = response.jsonPath();
 //        log.info("first Item : {}", jsonPath.getString("title"));

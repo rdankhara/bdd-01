@@ -39,6 +39,7 @@ public class BlogPostsStepDefinitions {
                 .log()
                 .everything()
                 .get();
+
     }
 
     @Then("request should be completed with status {int} and second comment with email {string}")
