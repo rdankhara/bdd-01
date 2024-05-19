@@ -2,13 +2,13 @@ package com.examples.api;
 
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.RequestSpecification;
 import org.hamcrest.core.Is;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsNot.not;
 
 public class ComicsApiTests {
@@ -25,6 +25,7 @@ public class ComicsApiTests {
         response.assertThat().statusCode(200);
 
         String jsonPathExpression = "data.results[0]";
+
         response.assertThat()
                 .body(jsonPathExpression, hasKey("id"))
                 .body(jsonPathExpression, hasKey("description"))
@@ -89,16 +90,52 @@ public class ComicsApiTests {
 //        }
     }
 
+    @Test
+    public void get_comics() {
+        String privateKey = "4d6e9465c7a3956f1f0153230cfc980ade8dfdec";
+        String publicKey = "3750536889898a0565ac71a0eb6920ad";
+        String ts = "xyz";
+//        String staticHash = "9df35ef657b719ae8195f0b7adc5d995";
+        String generatedHash = HashGenerator.getMd5(ts + privateKey + publicKey);
+
+        RequestSpecification request = given();
+        request.baseUri("http://gateway.marvel.com/v1/public");
+        request.basePath("comics");
+        request.queryParam("ts", ts);
+        request.queryParam("apikey", publicKey);
+        request.queryParam("hash", generatedHash);
+
+        Response response = request.log().everything().get();
+        ValidatableResponse validatableResponse = response.then();
+
+        int records = response.jsonPath().getInt("data.count");
+        for (int i = 0; i < records; i++ ) {
+            String jsonPathExpression = "data.results[" + i +"]";
+
+            validatableResponse.assertThat()
+                    .body(jsonPathExpression, hasKey("id"))
+                    .body(jsonPathExpression, hasKey("description"))
+                    .body(jsonPathExpression, hasKey("modified"))
+                    .body(jsonPathExpression, hasKey("resourceURI"))
+                    .body(jsonPathExpression, hasKey("thumbnail"))
+                    .body(jsonPathExpression, hasKey("stories"))
+                    .body(jsonPathExpression, hasKey("events"))
+                    .body(jsonPathExpression, hasKey("urls"));
+        }
+    }
+
     private ValidatableResponse getResponse() {
 //        var ts = new Date().getTime();
-//        String privateKey = "your private key";
+        String privateKey = "4d6e9465c7a3956f1f0153230cfc980ade8dfdec";
         String publicKey = "3750536889898a0565ac71a0eb6920ad";
         var ts = "abcd";
         String generatedHash = "9df35ef657b719ae8195f0b7adc5d995";
 //        String generatedHash = HashGenerator.getMd5(ts + privateKey + publicKey);
 
         System.out.println("Hash:" + "9df35ef657b719ae8195f0b7adc5d995");
-        ValidatableResponse response = given()
+
+
+        Response response = given()
                 .baseUri("http://gateway.marvel.com/v1/public")
                 .and()
                 .basePath("comics")
@@ -109,9 +146,12 @@ public class ComicsApiTests {
                 .and()
                 .queryParam("hash", generatedHash)
                 .when()
+                .log()
+                .everything()
                 .get()
-                .then();
+                ;
 
-        return response;
+        response.prettyPrint();
+        return response.then();
     }
 }
