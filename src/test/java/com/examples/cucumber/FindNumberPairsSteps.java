@@ -30,12 +30,12 @@ public class FindNumberPairsSteps {
     @When("I check for pairs")
     public void i_check_for_pairs() {
         hasAllPairs = NumberPairChecker.checkNumberPairs(this.numbers);
-        log.info("Checking for pairs");
+        log.info("Checking for pairs", this.numbers);
     }
 
     @Then("It should return {booleanValue}")
     public void it_should_return_true(boolean expectedResult) {
         Assert.assertEquals(hasAllPairs, expectedResult);
-        log.info("result is");
+        log.info("actual result is {}, expected {}", hasAllPairs, expectedResult);
     }
 }

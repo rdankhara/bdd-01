@@ -19,13 +19,14 @@ public class ComicsApiTests {
 
     @Test
     public void verify_character_properties_1() {
+        Response response = getResponse();
+        response.prettyPrint();
+        ValidatableResponse validatableResponse = getResponse().then();
 
-        ValidatableResponse response = getResponse();
-
-        response.assertThat().statusCode(200);
+        validatableResponse.assertThat().statusCode(200);
 
         String jsonPathExpression = "data.results[0]";
-        response.assertThat()
+        validatableResponse.assertThat()
                 .body(jsonPathExpression, hasKey("id"))
                 .body(jsonPathExpression, hasKey("description"))
                 .body(jsonPathExpression, hasKey("modified"))
@@ -38,29 +39,30 @@ public class ComicsApiTests {
 
     @Test
     public void verify_character_properties_2_failing() {
-
-        ValidatableResponse response = getResponse();
+        Response response = getResponse();
+        ValidatableResponse validatableResponse = response.then();
         String jsonPathExpression = "data.results[0]";
 
-        response.assertThat()
+        validatableResponse.assertThat()
                 .body(jsonPathExpression, hasKey("comics"))
                 .body(jsonPathExpression, hasKey("name"));
     }
 
     @Test
     public void verify_character_properties_Negative() {
+        Response response = getResponse();
 
-        ValidatableResponse response = getResponse();
+        ValidatableResponse validatableResponse = getResponse().then();
 
         String jsonPathExpression = "data.results[0]";
-        response.assertThat()
+        validatableResponse.assertThat()
                 .body(jsonPathExpression, not(hasKey("comicsAbcd")));
     }
 
     @Test
     public void verify_character_count() {
 
-        Response response = getResponse().extract().response();
+        Response response = getResponse().then().extract().response();
 
         //JsonPath results = response.jsonPath().getJsonObject("data.results[0].id");
         assertThat(response.getStatusCode(), Is.is(200));
@@ -89,7 +91,7 @@ public class ComicsApiTests {
 //        }
     }
 
-    private ValidatableResponse getResponse() {
+    private Response getResponse() {
 //        var ts = new Date().getTime();
 //        String privateKey = "your private key";
         String publicKey = "3750536889898a0565ac71a0eb6920ad";
@@ -98,7 +100,7 @@ public class ComicsApiTests {
 //        String generatedHash = HashGenerator.getMd5(ts + privateKey + publicKey);
 
         System.out.println("Hash:" + "9df35ef657b719ae8195f0b7adc5d995");
-        ValidatableResponse response = given()
+        Response response = given()
                 .baseUri("http://gateway.marvel.com/v1/public")
                 .and()
                 .basePath("comics")
@@ -109,8 +111,9 @@ public class ComicsApiTests {
                 .and()
                 .queryParam("hash", generatedHash)
                 .when()
+                .log().everything()
                 .get()
-                .then();
+                ;
 
         return response;
     }
