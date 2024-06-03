@@ -54,27 +54,7 @@ public class HashMapExample {
         log.info("Fruit Items {} ", fruitWithColor);
     }
 
-//    public static void addOrIncrementValue(HashMap<TKey, TValue> fruitCount, String key){
-//        if (fruitCount.containsKey(key)) {
-//            Integer count = fruitCount.get(key);
-//            fruitCount.put(key, count + 1);
-//        } else {
-//            fruitCount.put(key, 1);
-//        }
-//    }
-
-    public static void addOrIncrementValue(HashMap<Integer, Integer> fruitCount, Integer key){
-        Integer existingValue = fruitCount.getOrDefault(key, 0).intValue();
-        fruitCount.put(key, existingValue + 1);
-
-//        if (fruitCount.containsKey(key)) {
-//            Integer count = fruitCount.get(key);
-//            fruitCount.put(key, count + 1);
-//        } else {
-//            fruitCount.put(key, 1);
-//        }
-    }
-    public static void addOrIncrementValue(HashMap<String, Integer> fruitCount, String key){
+    public static <TKey> void addOrIncrementValue(HashMap<TKey, Integer> fruitCount, TKey key){
         if (fruitCount.containsKey(key)) {
             Integer count = fruitCount.get(key);
             fruitCount.put(key, count + 1);
@@ -82,6 +62,21 @@ public class HashMapExample {
             fruitCount.put(key, 1);
         }
     }
+
+//    public static void addOrIncrementValue(HashMap<Integer, Integer> fruitCount, Integer key){
+//        Integer existingValue = fruitCount.getOrDefault(key, 0).intValue();
+//        fruitCount.put(key, existingValue + 1);
+//
+//    }
+
+//    public static void addOrIncrementValue(HashMap<String, Integer> fruitCount, String key){
+//        if (fruitCount.containsKey(key)) {
+//            Integer count = fruitCount.get(key);
+//            fruitCount.put(key, count + 1);
+//        } else {
+//            fruitCount.put(key, 1);
+//        }
+//    }
 
     public static void hashMapUniqueKeyExample() {
         HashMap<String, String> fruitWithColor = new HashMap<>();
